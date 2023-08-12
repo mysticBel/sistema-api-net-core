@@ -89,5 +89,30 @@ namespace SistemaApiWeb.DAO
             }
             return mensaje;
         }
+
+        //--
+        //GetClienteById ( busqueda de cliente por parametro id)
+        public Cliente GetClienteById(int id)
+        {
+            Cliente cliente = new Cliente();
+            using (SqlConnection cn = new SqlConnection(cadena))
+            {
+                SqlCommand sqlCommand = new SqlCommand("sp_buscar_cliente",
+                    cn);
+                sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+                sqlCommand.Parameters.AddWithValue("@id", id);
+                cn.Open();
+                SqlDataReader dr = sqlCommand.ExecuteReader();
+                while (dr.Read())
+                {
+                    cliente.idcliente = dr.GetInt32(0);
+                    cliente.nombre = dr.GetString(1);
+                    cliente.direccion = dr.GetString(2);
+                    cliente.idpais = Int32.Parse(dr.GetString(3));
+                    cliente.telefono = dr.GetInt32(4);
+                }
+            }
+            return cliente;  //retornará un obj cliente
+        }
     }
 }
