@@ -48,7 +48,7 @@ namespace SistemaApiWeb.DAO
             {
                 try
                 {
-                    SqlCommand cmd = new SqlCommand("exec sp_insertar_cliente",
+                    SqlCommand cmd = new SqlCommand("sp_insertar_cliente",
                         cn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@nombre", cliente.nombre);
